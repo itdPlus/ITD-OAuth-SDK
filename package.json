@@ -1,0 +1,40 @@
+{
+  "name": "itd-oauth",
+  "version": "1.0.1",
+  "description": "Официальный SDK для ITD OAuth",
+  "author": "ITD",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/server.js",
+  "module": "./dist/server.js",
+  "exports": {
+    ".": {
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client.js",
+      "types": "./dist/client.d.ts"
+    }
+  },
+  "types": "./dist/server.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "elysia": ""
+  },
+  "peerDependenciesMeta": {
+    "elysia": {
+      "optional": true
+    }
+  }
+}
