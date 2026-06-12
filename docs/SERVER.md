@@ -142,3 +142,20 @@ try {
   }
 }
 ```
+
+### Публичные и защищённые роуты
+
+`elysiaPlugin()` вызывает `getUser()` при каждом запросе и кидает 401 если токена нет. Если нужны публичные роуты — не используй плагин глобально, применяй его только к нужным роутам через отдельный инстанс:
+
+```ts
+const authPlugin = await itd.elysiaPlugin();
+
+const app = new Elysia()
+  .get("/public", () => "доступно всем")
+  .use(
+    new Elysia()
+      .use(authPlugin)
+      .get("/me", ({ itdUser }) => ({ userId: itdUser.sub }))
+      .get("/posts", ({ itdUser }) => getPosts(itdUser.sub))
+  );
+```

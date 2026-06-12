@@ -67,3 +67,35 @@ try {
   }
 }
 ```
+
+## Обработка ошибок в `/api/refresh`
+
+`refreshToken()` тоже может вернуть `session_revoked` — если пользователь вышел из ИТД пока refresh token ещё был активен. Обрабатывай так же как в `proxy()`:
+
+```ts
+.post("/api/refresh", async ({ cookie, set }) => {
+  try {
+    const { token } = await itd.refreshToken(mockRequest, mockResponse);
+    return { token };
+  } catch (err) {
+    if (err instanceof ITDOAuthError) {
+      set.status = err.status;
+      return { error: err.message }; // "session_revoked", "Refresh token expired" и т.д.
+    }
+    set.status = 500;
+    return { error: "Internal error" };
+  }
+})
+```
+
+Ответ всегда одного формата: `{ token: "eyJ..." }` при успехе, `{ error: "..." }` при ошибке.
+
+На фронтенде при получении 401 от `/api/refresh` — разлогинивай пользователя:
+
+```ts
+const res = await fetch("/api/refresh", { method: "POST", credentials: "include" });
+if (res.status === 401) {
+  clearSession();
+  redirect("/login");
+}
+```
