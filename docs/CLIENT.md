@@ -133,19 +133,3 @@ export default function ITDCallbackPage() {
 | `access_denied`   | Нажал "Запретить" |
 | `state_mismatch`  | State не совпал — возможная CSRF атака |
 | `popup_blocked`   | Браузер заблокировал popup |
-
----
-
-## Параметр `oauthUrl`
-
-По умолчанию клиент обращается к `https://auth.xn--d1ah4a.tech`. Менять не нужно.
-
-Если поднимаешь собственный OAuth сервер (например для локальных тестов):
-
-```ts
-const itd = new ITDOAuthClient({
-  clientId: "your-app-id",
-  scope:    "users",
-  oauthUrl: "http://localhost:3000",
-});
-```

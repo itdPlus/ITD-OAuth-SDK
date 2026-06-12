@@ -12,7 +12,6 @@ import { ITDOAuth } from "itd-oauth";
 const itd = new ITDOAuth({
   clientId:     "your-app-id",
   clientSecret: "your-secret",
-  // oauthUrl — не нужно менять, всегда auth.xn--d1ah4a.tech
 });
 ```
 

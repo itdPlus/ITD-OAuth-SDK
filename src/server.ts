@@ -7,12 +7,10 @@ const DEFAULT_OAUTH_URL = "https://auth.xn--d1ah4a.tech";
 export class ITDOAuth {
   private clientId: string;
   private clientSecret: string;
-  readonly oauthUrl: string;
 
   constructor(config: ITDOAuthConfig) {
     this.clientId     = config.clientId;
     this.clientSecret = config.clientSecret;
-    this.oauthUrl     = (config.oauthUrl ?? DEFAULT_OAUTH_URL).replace(/\/$/, "");
   }
 
   getAuthorizationUrl(scope: string): { url: string; state: string } {
@@ -22,14 +20,14 @@ export class ITDOAuth {
       scope,
       state,
     });
-    return { url: `${this.oauthUrl}/oauth/authorize?${params}`, state };
+    return { url: `${DEFAULT_OAUTH_URL}/oauth/authorize?${params}`, state };
   }
 
   async exchangeCode(
     code: string,
     serverResponse?: { setHeader(name: string, value: string): void }
   ): Promise<{ token: string; expiresIn: number }> {
-    const res = await fetch(`${this.oauthUrl}/oauth/token`, {
+    const res = await fetch(`${DEFAULT_OAUTH_URL}/oauth/token`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -58,7 +56,7 @@ export class ITDOAuth {
   ): Promise<{ token: string; expiresIn: number }> {
     const cookieHeader = incomingRequest.headers.get("cookie") ?? "";
 
-    const res = await fetch(`${this.oauthUrl}/oauth/refresh`, {
+    const res = await fetch(`${DEFAULT_OAUTH_URL}/oauth/refresh`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -122,7 +120,7 @@ export class ITDOAuth {
 
     const { method = "GET", body, query } = options;
 
-    let url = `${this.oauthUrl}/proxy${path}`;
+    let url = `${DEFAULT_OAUTH_URL}/proxy${path}`;
     if (query && Object.keys(query).length > 0) {
       url += "?" + new URLSearchParams(query).toString();
     }
