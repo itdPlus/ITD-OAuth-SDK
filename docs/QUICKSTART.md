@@ -130,3 +130,29 @@ const profile = await itd.proxy(
 ```
 
 Готово.
+
+## Хранение секретов
+
+`client_secret` никогда не должен попасть в браузер. Правильная схема:
+
+```
+.env (бэкенд)
+├── CLIENT_ID=your-app-id
+└── CLIENT_SECRET=your-secret   ← только здесь
+```
+
+```ts
+// ✅ Правильно — на бэкенде
+const itd = new ITDOAuth({
+  clientId:     process.env.CLIENT_ID!,
+  clientSecret: process.env.CLIENT_SECRET!,
+});
+
+// ❌ Неправильно — на фронтенде
+const itd = new ITDOAuth({
+  clientId:     "your-app-id",
+  clientSecret: "your-secret", // виден в исходнике страницы
+});
+```
+
+`ITDOAuthClient` (браузерный) принимает только `clientId` — секрета у него нет намеренно.

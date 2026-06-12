@@ -12,7 +12,7 @@ import { ITDOAuth } from "itd-oauth";
 const itd = new ITDOAuth({
   clientId:     "your-app-id",
   clientSecret: "your-secret",
-  // oauthUrl — не нужно менять, всегда auth.xn--d1ah4a.com
+  // oauthUrl — не нужно менять, всегда auth.xn--d1ah4a.tech
 });
 ```
 
@@ -36,6 +36,9 @@ const itd = new ITDOAuth({
 ```
 
 Передавай `serverResponse` — без него refresh cookie не попадёт к пользователю.
+Refresh cookie нужен для последующего вызова `refreshToken()` — именно через него SDK
+обновляет JWT без повторного входа пользователя. Если не передать `serverResponse` здесь,
+то `refreshToken()` всегда будет падать с 401.
 
 ---
 
