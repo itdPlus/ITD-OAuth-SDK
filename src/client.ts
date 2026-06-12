@@ -11,12 +11,12 @@ const STATE_KEY         = "itd_oauth_state";
 export class ITDOAuthClient {
   private clientId: string;
   private scope: string;
-  private oauthUrl: string;
+  private redirectUri?: string;
 
   constructor(config: ITDClientConfig) {
     this.clientId = config.clientId;
     this.scope    = config.scope;
-    this.oauthUrl = config.oauthUrl?.replace(/\/$/, "") ?? DEFAULT_OAUTH_URL;
+    this.redirectUri = config.redirectUri;
   }
 
   loginWithPopup(): Promise<string> {
@@ -30,7 +30,11 @@ export class ITDOAuthClient {
         state,
       });
 
-      const url = `${this.oauthUrl}/oauth/authorize?${params}`;
+      if (this.redirectUri) {
+        params.set("redirect_uri", this.redirectUri);
+      }
+
+      const url = `${DEFAULT_OAUTH_URL}/oauth/authorize?${params}`;
 
       const left = Math.round(window.screenX + (window.outerWidth  - POPUP_WIDTH)  / 2);
       const top  = Math.round(window.screenY + (window.outerHeight - POPUP_HEIGHT) / 2);

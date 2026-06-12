@@ -24,13 +24,12 @@ export type ITDScope =
 export interface ITDOAuthConfig {
   clientId: string;
   clientSecret: string;
-  oauthUrl?: string;
 }
 
 export interface ITDClientConfig {
   clientId: string;
   scope: string;
-  oauthUrl?: string;
+  redirectUri?: string;
 }
 
 export interface ITDTokenResponse {
