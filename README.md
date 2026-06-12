@@ -1,4 +1,4 @@
-# itd-oauth
+# ITD OAuth SDK
 
 Официальный SDK для авторизации через ИТД OAuth.
 
