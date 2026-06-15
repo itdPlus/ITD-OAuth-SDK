@@ -17,6 +17,14 @@
       "types": "./dist/client.d.ts"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itdPlus/ITD-OAuth-SDK.git"
+  },
+  "bugs": {
+    "url": "https://github.com/itdPlus/ITD-OAuth-SDK/issues"
+  },
+  "homepage": "https://github.com/itdPlus/ITD-OAuth-SDK#readme",
   "types": "./dist/server.d.ts",
   "files": [
     "dist"

@@ -1,3 +1,5 @@
+![ИТД OAuth](./banner.png)
+
 # ITD OAuth SDK
 
 Официальный SDK для авторизации через ИТД OAuth.
