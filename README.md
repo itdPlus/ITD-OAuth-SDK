@@ -2,6 +2,10 @@
 
 # ITD OAuth SDK
 
+[![npm version](https://img.shields.io/npm/v/itd-oauth.svg?style=flat-flat&color=33cd56)](https://www.npmjs.com/package/itd-oauth)
+[![npm downloads](https://img.shields.io/npm/dm/itd-oauth.svg?style=flat-flat&color=007ec6)](https://www.npmjs.com/package/itd-oauth)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Официальный SDK для авторизации через ИТД OAuth.
 
 ## Установка
