@@ -13,16 +13,6 @@ export class ITDOAuth {
     this.clientSecret = config.clientSecret;
   }
 
-  getAuthorizationUrl(scope: string): { url: string; state: string } {
-    const state = this._randomHex(16);
-    const params = new URLSearchParams({
-      client_id: this.clientId,
-      scope,
-      state,
-    });
-    return { url: `${DEFAULT_OAUTH_URL}/oauth/authorize?${params}`, state };
-  }
-
   async exchangeCode(
     code: string,
     serverResponse?: { setHeader(name: string, value: string): void }
@@ -156,17 +146,6 @@ export class ITDOAuth {
         return { itdUser: getUser() };
       });
     };
-  }
-
-  private _randomHex(bytes: number): string {
-    const arr = new Uint8Array(bytes);
-    if (typeof crypto !== "undefined" && crypto.getRandomValues) {
-      crypto.getRandomValues(arr);
-    } else {
-      const { randomFillSync } = require("crypto") as typeof import("crypto");
-      randomFillSync(arr);
-    }
-    return Array.from(arr).map((b) => b.toString(16).padStart(2, "0")).join("");
   }
 }
 
